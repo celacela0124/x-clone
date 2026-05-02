@@ -1,6 +1,10 @@
 (async () => {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (session) window.location.href = 'feed.html';
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) window.location.href = 'feed.html';
+  } catch (e) {
+    console.error('getSession error:', e);
+  }
 })();
 
 // タブ切り替え
@@ -28,15 +32,20 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    errEl.textContent = 'メールアドレスかパスワードが違います';
-    btn.disabled = false;
-    btn.textContent = 'ログイン';
-  } else {
-    window.location.href = 'feed.html';
+  try {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      errEl.textContent = 'メールアドレスかパスワードが違います';
+    } else {
+      window.location.href = 'feed.html';
+      return;
+    }
+  } catch (e) {
+    console.error('signIn error:', e);
+    errEl.textContent = 'エラーが発生しました: ' + e.message;
   }
+  btn.disabled = false;
+  btn.textContent = 'ログイン';
 });
 
 // 新規登録
@@ -51,13 +60,18 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
   const email = document.getElementById('reg-email').value.trim();
   const password = document.getElementById('reg-password').value;
 
-  const { error } = await supabase.auth.signUp({ email, password });
-
-  if (error) {
-    errEl.textContent = error.message.includes('already') ? 'このメールアドレスはすでに登録されています' : error.message;
-    btn.disabled = false;
-    btn.textContent = 'アカウント作成';
-  } else {
-    window.location.href = 'feed.html';
+  try {
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      errEl.textContent = error.message.includes('already') ? 'このメールアドレスはすでに登録されています' : error.message;
+    } else {
+      window.location.href = 'feed.html';
+      return;
+    }
+  } catch (e) {
+    console.error('signUp error:', e);
+    errEl.textContent = 'エラーが発生しました: ' + e.message;
   }
+  btn.disabled = false;
+  btn.textContent = 'アカウント作成';
 });
