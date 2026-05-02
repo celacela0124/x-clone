@@ -1,0 +1,2 @@
+const SUPABASE_URL = 'https://ebvzloikwzmebogbycys.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVidnpsb2lrd3ptZWJvZ2J5Y3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MjQ5NjMsImV4cCI6MjA5MzMwMDk2M30._Mq390mEB7_CgrhKzRuabqBxE7PKrXZtIfGNFVYpq94';
