@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X Clone</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-logo">X</div>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">ログイン</button>
+        <button class="auth-tab" data-tab="register">新規登録</button>
+      </div>
+
+      <!-- ログインフォーム -->
+      <form class="auth-form" id="login-form">
+        <div class="form-group">
+          <label for="login-email">メールアドレス</label>
+          <input type="email" id="login-email" placeholder="example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">パスワード</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+        <p class="error-msg" id="login-error"></p>
+        <button type="submit" class="btn btn-primary">ログイン</button>
+      </form>
+
+      <!-- 登録フォーム -->
+      <form class="auth-form hidden" id="register-form">
+        <div class="form-group">
+          <label for="reg-email">メールアドレス</label>
+          <input type="email" id="reg-email" placeholder="example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-password">パスワード（6文字以上）</label>
+          <input type="password" id="reg-password" placeholder="••••••••" required minlength="6">
+        </div>
+        <p class="error-msg" id="register-error"></p>
+        <button type="submit" class="btn btn-accent">アカウント作成</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

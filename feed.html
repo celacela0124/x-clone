@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ホーム / X Clone</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <header class="header">
+      <span class="header-logo">X</span>
+      <div class="header-user">
+        <span id="header-username"></span>
+        <button class="btn btn-ghost" id="logout-btn" style="padding:6px 14px;font-size:13px">ログアウト</button>
+      </div>
+    </header>
+
+    <!-- 投稿コンポーズ -->
+    <div class="compose">
+      <textarea id="post-content" placeholder="いまどうしてる?" maxlength="280" rows="3"></textarea>
+      <div class="compose-footer">
+        <span class="char-counter" id="char-counter">0 / 280</span>
+        <button class="btn btn-accent" id="post-btn" disabled>投稿</button>
+      </div>
+      <p class="error-msg" id="post-error"></p>
+    </div>
+
+    <!-- タイムライン -->
+    <div class="timeline" id="timeline">
+      <div class="loading">読み込み中...</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/posts.js"></script>
+  <script src="js/feed.js"></script>
+</body>
+</html>
