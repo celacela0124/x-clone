@@ -77,11 +77,16 @@ const SUPABASE_URL = 'https://xxxxxxxxxx.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGci...';
 ```
 
-> `js/config.js` は `.gitignore` で除外されているので、間違ってgitにコミットされることはない。
+> `js/config.js` は**リポジトリにコミットされている**(GitHub Pages で配信するため)。anon key は RLS で保護される公開前提の値なのでコミットして問題ない。**`service_role` キーは絶対にコミットしないこと**(RLS をバイパスするため)。
 
 ### 5. 動作確認
 
-`index.html` をブラウザで開くか、VS Code の Live Server 等で確認。
+ローカルサーバー経由で確認する（`file://` 直開きは CORS で動かない場合がある）：
+
+```bash
+python3 -m http.server 8080
+# → http://localhost:8080/index.html
+```
 
 ---
 
@@ -100,8 +105,7 @@ GitHubリポジトリの **Settings > Pages** で：
 
 しばらくするとURLが発行される（`https://<username>.github.io/x-clone/`）。
 
-> GitHub Pages 上でも `js/config.js` は存在しないので、**デプロイ後に直接ファイルをアップロードするか、リポジトリのSecrets/Actionsを使う方法**を検討すること。  
-> 最も手軽な方法は GitHub の Web UI でリポジトリに `js/config.js` を追加すること（ただしpublicリポジトリの場合は注意）。
+> `js/config.js` はリポジトリにコミット済みなので、push するだけでそのまま GitHub Pages で動く。GitHub Pages にはビルドステップがないため、Secrets/Actions によるシークレット注入は使えない(この制約が config.js をコミットする理由)。
 
 ## ファイル構成
 
@@ -111,8 +115,8 @@ x-clone/
 ├── feed.html               # タイムライン
 ├── css/styles.css          # スタイル
 ├── js/
-│   ├── config.example.js   # 設定テンプレート（git管理）
-│   ├── config.js           # 実際の設定（gitignored）
+│   ├── config.example.js   # 設定テンプレート
+│   ├── config.js           # 実際の設定（コミット済み。anon keyのみ）
 │   ├── supabase-client.js  # Supabaseクライアント
 │   ├── auth.js             # 認証ロジック
 │   ├── feed.js             # タイムライン
